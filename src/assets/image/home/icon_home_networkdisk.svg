@@ -1,0 +1,54 @@
+<svg id="icon_home_networkdisk" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+  <defs>
+    <style>
+      .cls-1, .cls-3, .cls-4 {
+        fill: #fff;
+      }
+
+      .cls-1 {
+        opacity: 0;
+      }
+
+      .cls-2 {
+        fill: #338af3;
+      }
+
+      .cls-4 {
+        stroke: #338af3;
+        stroke-width: 2px;
+      }
+
+      .cls-5 {
+        fill: #ffbc13;
+      }
+
+      .cls-6, .cls-7 {
+        stroke: none;
+      }
+
+      .cls-7 {
+        fill: #707070;
+      }
+
+      .cls-8 {
+        fill: none;
+      }
+    </style>
+  </defs>
+  <g id="路径_27483" data-name="路径 27483" class="cls-1">
+    <path class="cls-6" d="M 39.5 39.5 L 0.5 39.5 L 0.5 0.5 L 39.5 0.5 L 39.5 39.5 Z"/>
+    <path class="cls-7" d="M 1 1 L 1 39 L 39 39 L 39 1 L 1 1 M 0 0 L 40 0 L 40 40 L 0 40 L 0 0 Z"/>
+  </g>
+  <path id="减去_21" data-name="减去 21" class="cls-2" d="M5,0H23.571a5,5,0,0,1,5,5V23.571a5,5,0,0,1-5,5H5a5,5,0,0,1-5-5V5A5,5,0,0,1,5,0Z" transform="translate(5.715 5.714)"/>
+  <g id="组_3343" data-name="组 3343" transform="translate(12.857 11.905)">
+    <circle id="椭圆_174" data-name="椭圆 174" class="cls-3" cx="3.571" cy="3.571" r="3.571" transform="translate(0 2.349)"/>
+    <circle id="椭圆_175" data-name="椭圆 175" class="cls-3" cx="3.571" cy="3.571" r="3.571" transform="translate(3.571)"/>
+    <circle id="椭圆_176" data-name="椭圆 176" class="cls-3" cx="2.976" cy="2.976" r="2.976" transform="translate(8.333 3.571)"/>
+    <rect id="矩形_1232" data-name="矩形 1232" class="cls-3" width="7.738" height="3.571" transform="translate(3.571 5.952)"/>
+  </g>
+  <g id="矩形_1279" data-name="矩形 1279" class="cls-4" transform="translate(5.714 24.968)">
+    <rect class="cls-6" width="28.571" height="9.286" rx="4.643"/>
+    <rect class="cls-8" x="1" y="1" width="26.571" height="7.286" rx="3.643"/>
+  </g>
+  <circle id="椭圆_177" data-name="椭圆 177" class="cls-5" cx="1.786" cy="1.786" r="1.786" transform="translate(25.714 27.825)"/>
+</svg>

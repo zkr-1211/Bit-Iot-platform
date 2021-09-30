@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="80" height="80" viewBox="0 0 80 80">
+  <defs>
+    <style>
+      .cls-1, .cls-4 {
+        fill: #fff;
+      }
+
+      .cls-1 {
+        stroke: #707070;
+      }
+
+      .cls-2 {
+        clip-path: url(#clip-path);
+      }
+
+      .cls-3 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-5 {
+        fill: #5592fe;
+      }
+
+      .cls-6 {
+        filter: url(#路径_27460);
+      }
+    </style>
+    <clipPath id="clip-path">
+      <rect id="矩形_1830" data-name="矩形 1830" class="cls-1" width="80" height="80" transform="translate(473 1371)"/>
+    </clipPath>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.809" y2="0.893" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#5592fe"/>
+      <stop offset="1" stop-color="#2a77ff"/>
+    </linearGradient>
+    <filter id="路径_27460" x="-1" y="-1" width="82" height="82" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-color="#5592fe" flood-opacity="0.686"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="ic_team_invitation" transform="translate(-473 -1371)">
+    <g id="蒙版组_37" data-name="蒙版组 37" class="cls-2">
+      <g id="ic_invitation" transform="translate(-1269 1234)">
+        <g class="cls-6" transform="matrix(1, 0, 0, 1, 1742, 137)">
+          <path id="路径_27460-2" data-name="路径 27460" class="cls-3" d="M32,0A32,32,0,1,1,0,32,32,32,0,0,1,32,0Z" transform="translate(8 5)"/>
+        </g>
+        <circle id="椭圆_10" data-name="椭圆 10" class="cls-4" cx="8.866" cy="8.866" r="8.866" transform="translate(1773.634 156.049)"/>
+        <path id="减去_1" data-name="减去 1" class="cls-4" d="M31.219,14.048H0A12.767,12.767,0,0,1,1.227,8.58,14.016,14.016,0,0,1,4.572,4.115,15.756,15.756,0,0,1,9.533,1.1a17.273,17.273,0,0,1,12.152,0,15.756,15.756,0,0,1,4.962,3.011A14.023,14.023,0,0,1,29.992,8.58a12.767,12.767,0,0,1,1.227,5.468Z" transform="translate(1766.391 177.122)"/>
+        <circle id="椭圆_12" data-name="椭圆 12" class="cls-5" cx="10.927" cy="10.927" r="10.927" transform="translate(1784 177)"/>
+        <g id="组_2212" data-name="组 2212" transform="translate(1787 180)">
+          <rect id="矩形_967" data-name="矩形 967" class="cls-4" width="16" height="2.286" rx="1.143" transform="translate(0 6.857)"/>
+          <rect id="矩形_968" data-name="矩形 968" class="cls-4" width="16" height="2.286" rx="1.143" transform="translate(9.143 0) rotate(90)"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
