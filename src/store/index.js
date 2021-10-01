@@ -1,7 +1,5 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-// import { getRootDomain } from '@/utils/getRootDomain';
-// const rootDomain = getRootDomain();
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -14,13 +12,14 @@ export default new Vuex.Store({
             if (token) {
                 state.token = token;
                 localStorage.setItem('token', token)
-                    // Vue.$cookies.set(
-                    //     `${process.env.VUE_APP_SOURCE}.token`,
-                    //     token,
-                    //     '7d',
-                    //     '/',
-                    //     rootDomain
-                    // );
+                // console.log("token", token)
+                // Vue.$cookies.set(
+                //     `${process.env.VUE_APP_SOURCE}.token`,
+                //     token,
+                //     '7d',
+                //     '/',
+                //     rootDomain
+                // );
             }
         },
         clearToken(state) {
@@ -40,9 +39,9 @@ export default new Vuex.Store({
             console.log("statestatestatestate", state)
             if (!state.token) {
                 const getCookieToken = localStorage.getItem('token')
-                    // const getCookieToken = Vue.$cookies.get(
-                    //     `${process.env.VUE_APP_SOURCE}.token`
-                    // );
+                // const getCookieToken = Vue.$cookies.get(
+                //     `${process.env.VUE_APP_SOURCE}.token`
+                // );
                 if (!getCookieToken) {
                     return null;
                 }

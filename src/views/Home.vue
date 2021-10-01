@@ -218,12 +218,12 @@
         @close="handleClose"
       >
         <el-menu-item
-          @click="saveNavState('/main')"
-          index="/main"
-          :class="selectIndex == '/main' ? 'selectStyle' : ''"
+          @click="saveNavState('/')"
+          index="/"
+          :class="selectIndex == '/' ? 'selectStyle' : ''"
         >
           <img
-            v-if="selectIndex == '/main'"
+            v-if="selectIndex == '/'"
             src="@/assets/image/leftbar/leftbar_home_s.svg"
             alt=""
           />
@@ -233,12 +233,12 @@
         </el-menu-item>
 
         <el-menu-item
-          @click="saveNavState('/course')"
-          index="/course"
-          :class="selectIndex == '/course' ? 'selectStyle' : ''"
+          @click="saveNavState('/allequipment')"
+          index="/allequipment"
+          :class="selectIndex == '/allequipment' ? 'selectStyle' : ''"
         >
           <img
-            v-if="selectIndex == '/course'"
+            v-if="selectIndex == '/allequipment'"
             src="@/assets/image/leftbar/leftbar_course_s.svg"
             alt=""
           />
@@ -250,12 +250,12 @@
           <span style="marginLeft: 0.2rem">所有设备</span>
         </el-menu-item>
         <el-menu-item
-          @click="saveNavState('/recordVideo')"
-          index="/recordVideo"
-          :class="selectIndex == '/recordVideo' ? 'selectStyle' : ''"
+          @click="saveNavState('/')"
+          index="/"
+          :class="selectIndex == '/' ? 'selectStyle' : ''"
         >
           <img
-            v-if="selectIndex == '/recordVideo'"
+            v-if="selectIndex == '/'"
             src="@/assets/image/leftbar/leftbar_recordvideo_s.svg"
             alt=""
           />
@@ -311,6 +311,7 @@ export default {
     // });
   },
   mounted() {
+    console.log("query", this.$route.query)
     let isFullscreen =
       document.fullscreenElement ||
       document.mozFullScreenElement ||

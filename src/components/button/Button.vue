@@ -58,7 +58,6 @@ export default {
     justify-content: center;
     min-width: 1.08rem;
     height: 0.4rem;
-    // padding-left: 0.08rem;
     background: var(--background);
     border: none;
     box-shadow: 0rem 0.03rem 0.06rem rgba(42, 119, 255, 0.2);
@@ -79,8 +78,6 @@ export default {
       margin-right: 0.04rem;
       display: flex;
       align-items: center;
-      img {
-      }
     }
   }
 }

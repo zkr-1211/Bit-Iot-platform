@@ -78,9 +78,9 @@ async function errorHandler(res) {
 export default (axios) => {
     axios.interceptors.response.use(
         async (res) => {
-            console.log("res", res)
+            // console.log("resinterceptors", res)
             if (res.status >= 200 && res.status < 300) {
-                return res.data.data || {};
+                return res || {};
             } else {
                 await errorHandler(res);
             }

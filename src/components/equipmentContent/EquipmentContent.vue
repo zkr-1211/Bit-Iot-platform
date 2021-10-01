@@ -7,7 +7,7 @@
         <div class="course-item" v-for="(item, index) in 7" :key="index">
 
           <div class="checkbox">
-            <el-tooltip class="item" effect="dark" content="UI设计1班:第一次作业第一次作业" placement="top">
+            <el-tooltip class="item" effect="dark" content="空调" placement="top">
               <router-link to="/equipmentoverview">
                 <div class="name">
                   空调
@@ -44,18 +44,24 @@
         </div>
       </div>
     </div>
-    <!-- <Dialog :editDV="editDV" :deleteDV="deleteDV" @Cancle="(editDV = false), (deleteDV = false)" @editHandleClose="editDV = false" @deleteHandleClose="deleteDV = false" /> -->
+    <Dialog
+      :editDV="editDV"
+      :deleteDV="deleteDV"
+      @Cancle="(editDV = false), (deleteDV = false)"
+      @editHandleClose="editDV = false"
+      @deleteHandleClose="deleteDV = false"
+    />
   </div>
 </template>
 
 <script>
 import Dot from "@/components/dot/Dot";
-// import Dialog from "@/components/dialog/Dialog.vue";
+import Dialog from "@/components/dialog/Dialog.vue";
 import CheckBox from "@/components/checkBox/CheckBox.vue";
 export default {
   components: {
     Dot,
-    // Dialog,
+    Dialog,
     CheckBox,
   },
   props: {

@@ -25,10 +25,10 @@
         />
       </el-col>
     </el-row>
-    <WorkContent v-if="tabIndex == 0" />
+    <EquipmentContent v-if="tabIndex == 0" />
     <!-- </div> -->
 
-    <!-- 创建课程 -->
+    <!-- 创建设备 -->
     <el-dialog
       title=""
       :visible.sync="dialogVisible2"
@@ -54,14 +54,14 @@
 import Tabs from "@/components/tabs/Tabs.vue";
 import HeaderTitle from "@/components/headerTitle/HeaderTitle.vue";
 import Navigation from "@/components/navigation/Navigation.vue";
-import WorkContent from "@/components/workContent/WorkContent.vue";
+import EquipmentContent from "@/components/equipmentContent/EquipmentContent.vue";
 import { getColumnList } from "@/api/home/home";
 export default {
   components: {
     Tabs,
     HeaderTitle,
     Navigation,
-    WorkContent,
+    EquipmentContent,
   },
 
   data() {
@@ -78,17 +78,17 @@ export default {
   computed: {},
 
   mounted() {
-    // this.getColumnList();
+    this.getColumnList();
   },
 
   methods: {
     tabsIndex() {
       
-    }
-    // async getColumnList() {
-    //   const res = await getColumnList();
-    //   console.log("res=========", res);
-    // },
+    },
+    async getColumnList() {
+      const res = await getColumnList();
+      console.log("res=========", res);
+    },
   },
 };
 </script>
