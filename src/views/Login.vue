@@ -11,76 +11,34 @@
       <div class="title" v-else>注册</div>
       <div class="content">
         <div>
-          <el-form
-            status-icon
-            :model="ruleForm"
-            :rules="rules"
-            ref="ruleForm"
-            class="demo-ruleForm"
-          >
+          <el-form status-icon :model="ruleForm" :rules="rules" ref="ruleForm" class="demo-ruleForm">
             <el-form-item label="" prop="nickname" v-if="!isLogin">
-              <el-input
-                placeholder="昵称"
-                v-model="ruleForm.nickname"
-              ></el-input>
+              <el-input placeholder="昵称" v-model="ruleForm.nickname"></el-input>
             </el-form-item>
             <el-form-item label="" prop="account">
-              <el-input
-                placeholder="账号"
-                v-model.number="ruleForm.account"
-              ></el-input>
+              <el-input placeholder="账号" v-model="ruleForm.account"></el-input>
             </el-form-item>
             <el-form-item label="" prop="password">
-              <el-input
-                placeholder="密码"
-                type="password"
-                v-model.number="ruleForm.password"
-                autocomplete="off"
-              ></el-input>
+              <el-input placeholder="密码" type="password" v-model.number="ruleForm.password" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item label="" prop="confirmPassword" v-if="!isLogin">
-              <el-input
-                type="password"
-                placeholder="确认密码"
-                v-model.number="ruleForm.confirmPassword"
-                autocomplete="off"
-              ></el-input>
+              <el-input type="password" placeholder="确认密码" v-model.number="ruleForm.confirmPassword" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item>
               <div class="forget-password" v-if="isLogin">
                 <div class="save-text">
-                  <el-checkbox v-model="checked"></el-checkbox
-                  ><span>保存密码</span>
+                  <el-checkbox v-model="checked"></el-checkbox><span>保存密码</span>
                 </div>
                 <div class="text">忘记密码？</div>
               </div>
               <div class="buttons">
                 <template>
-                  <el-button
-                    v-if="isLogin"
-                    class="button1"
-                    type="primary"
-                    @click="submitForm('ruleForm')"
-                    >登入</el-button
-                  >
-                  <el-button
-                    v-else
-                    class="button1"
-                    type="primary"
-                    @click="register('ruleForm')"
-                    >注册</el-button
-                  >
+                  <el-button v-if="isLogin" class="button1" type="primary" @click="submitForm('ruleForm')">登入</el-button>
+                  <el-button v-else class="button1" type="primary" @click="register('ruleForm')">注册</el-button>
                 </template>
                 <template>
-                  <el-button
-                    v-if="isLogin"
-                    class="button2"
-                    @click="toRegister('ruleForm')"
-                    >注册</el-button
-                  >
-                  <el-button v-else class="button2" @click="toLogin('ruleForm')"
-                    >返回</el-button
-                  >
+                  <el-button v-if="isLogin" class="button2" @click="toRegister('ruleForm')">注册</el-button>
+                  <el-button v-else class="button2" @click="toLogin('ruleForm')">返回</el-button>
                 </template>
               </div>
             </el-form-item>
@@ -134,7 +92,6 @@ export default {
         account: [
           {
             required: true,
-            type: "number",
             message: "ID必须为数字",
           },
         ],
@@ -159,20 +116,33 @@ export default {
             password,
           };
           try {
-            const res = await LoginApi(data);
-            let token = res.data;
-            this.$store.commit("setToken", token);
-            this.$router.replace({
-              path: "/allequipment",
-            });
+            const { data: res } = await LoginApi(data);
+            console.log("res", res);
+            if (res.code === 200) {
+              const token = res.data.token;
+              this.$store.commit("setToken", token);
+              console.log("id", id)
+              this.$store.commit("setUserInfo", id);
+              this.$router.replace({
+                path: "/home",
+              });
+              this.$message({
+                message: "登入成功",
+                type: "success",
+              });
+            } else {
+              this.$router.replace({
+                path: "/login",
+              });
+              this.$message.error("登入失败");
+            }
+
             this.resetForm(formName);
-            // const res1 = store.getToken()
-            console.log("登入成功", res.data);
           } catch (error) {
-            console.log("登入失败", error);
+            this.$message.error("登入失败");
           }
         } else {
-          console.log("error submit!!");
+          this.$message.error("请输入内容");
           return false;
         }
       });
@@ -195,12 +165,18 @@ export default {
           };
           try {
             const res = await RegisterApi(data);
-            console.log("注册成功", res);
+            this.$message({
+              message: "注册成功",
+              type: "success",
+            });
+            setTimeout(() => {
+              this.toLogin(formName);
+            }, 1000);
           } catch (error) {
-            console.log("注册失败", error);
+            this.$message.error("注册失败");
           }
         } else {
-          console.log("error submit!!");
+          this.$message.error("请输入内容");
           return false;
         }
       });

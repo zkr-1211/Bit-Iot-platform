@@ -44,18 +44,8 @@
             </TopBar>
             <!--内容表格-->
 
-            <el-table
-              :header-cell-style="{ background: '#EDEFF3', color: '#000000' }"
-              :data="tableData"
-              border
-              style="width: 100%"
-              @selection-change="handleSelectionChange"
-            >
-              <el-table-column
-                type="selection"
-                width="50"
-                :cell-style="{ textAlign: 'center' }"
-              >
+            <el-table :header-cell-style="{ background: '#EDEFF3', color: '#000000' }" :data="tableData" border style="width: 100%" @selection-change="handleSelectionChange">
+              <el-table-column type="selection" width="50" :cell-style="{ textAlign: 'center' }">
               </el-table-column>
               <el-table-column prop="date" label="序号" width="150">
               </el-table-column>
@@ -67,12 +57,7 @@
               </el-table-column>
               <el-table-column fixed="right" label="操作" min-width="200">
                 <template slot-scope="scope">
-                  <el-button
-                    @click="handleClick(scope.row)"
-                    type="text"
-                    size="small"
-                    >删除</el-button
-                  >
+                  <el-button @click="handleClick(scope.row)" type="text" size="small">删除</el-button>
                   <el-button type="text" size="small">编辑</el-button>
                   <el-button type="text" size="small">查看</el-button>
                 </template>
@@ -93,18 +78,8 @@
           <img src="@/assets/image/home/ic_button_add.svg" alt="" />
         </Button>
       </TopBar>
-      <el-table
-        :header-cell-style="{ background: '#EDEFF3', color: '#000000' }"
-        :data="tableData"
-        border
-        style="width: 100%"
-        @selection-change="handleSelectionChange"
-      >
-        <el-table-column
-          type="selection"
-          width="50"
-          :cell-style="{ textAlign: 'center' }"
-        >
+      <el-table :header-cell-style="{ background: '#EDEFF3', color: '#000000' }" :data="tableData" border style="width: 100%" @selection-change="handleSelectionChange">
+        <el-table-column type="selection" width="50" :cell-style="{ textAlign: 'center' }">
         </el-table-column>
         <el-table-column prop="date" label="序号" width="150">
         </el-table-column>
@@ -116,9 +91,7 @@
         </el-table-column>
         <el-table-column fixed="right" label="操作" min-width="200">
           <template slot-scope="scope">
-            <el-button @click="handleClick(scope.row)" type="text" size="small"
-              >删除</el-button
-            >
+            <el-button @click="handleClick(scope.row)" type="text" size="small">删除</el-button>
             <el-button type="text" size="small">编辑</el-button>
             <el-button type="text" size="small">查看</el-button>
           </template>
@@ -130,39 +103,19 @@
       </div>
     </div>
     <!-- 创建订阅 -->
-    <el-dialog
-      title=""
-      :visible.sync="createMqtt"
-      width="30%"
-      :show-close="false"
-      top="40vh"
-    >
+    <el-dialog title="" :visible.sync="createMqtt" width="30%" :show-close="false" top="40vh">
       <h2>创建订阅</h2>
       <input class="course-input" type="text" />
       <span slot="footer" class="dialog-footer">
-        <el-button class="cancel-button" @click="createMqtt = false"
-          >取 消</el-button
-        >
+        <el-button class="cancel-button" @click="createMqtt = false">取 消</el-button>
         <el-button type="primary" @click="createMqtt = false">创 建</el-button>
       </span>
     </el-dialog>
     <!-- 创建任务计划 -->
-    <el-dialog
-      title=""
-      :visible.sync="createTask"
-      width="30%"
-      :show-close="false"
-      top="20vh"
-    >
+    <el-dialog title="" :visible.sync="createTask" width="30%" :show-close="false" top="20vh">
       <h2>创建计划任务</h2>
       <div class="contentDv">
-        <el-form
-          :model="ruleForm"
-          :rules="rules"
-          ref="ruleForm"
-          label-width="100px"
-          class="demo-ruleForm"
-        >
+        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
           <el-form-item label="任务名称" prop="name">
             <el-input v-model="ruleForm.name"></el-input>
           </el-form-item>
@@ -182,22 +135,13 @@
           <el-form-item label="起止时间" required>
             <el-col :span="11">
               <el-form-item prop="date1">
-                <el-date-picker
-                  type="date"
-                  placeholder="选择日期"
-                  v-model="ruleForm.date1"
-                  style="width: 100%"
-                ></el-date-picker>
+                <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.date1" style="width: 100%"></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col class="line" :span="2">-</el-col>
             <el-col :span="11">
               <el-form-item prop="date2">
-                <el-time-picker
-                  placeholder="选择时间"
-                  v-model="ruleForm.date2"
-                  style="width: 100%"
-                ></el-time-picker>
+                <el-time-picker placeholder="选择时间" v-model="ruleForm.date2" style="width: 100%"></el-time-picker>
               </el-form-item>
             </el-col>
           </el-form-item>
@@ -215,12 +159,8 @@
           </el-form-item>
         </el-form>
         <div class="dialog-footer">
-          <el-button class="cancel-button" @click="resetForm('ruleForm')"
-            >取 消</el-button
-          >
-          <el-button type="primary" @click="submitForm('ruleForm')"
-            >添 加</el-button
-          >
+          <el-button class="cancel-button" @click="resetForm('ruleForm')">取 消</el-button>
+          <el-button type="primary" @click="submitForm('ruleForm')">添 加</el-button>
         </div>
       </div>
     </el-dialog>
@@ -230,6 +170,7 @@
 <script>
 import TopBar from "@/components/topBar/TopBar.vue";
 import Button from "@/components/button/Button.vue";
+import { getMqttList } from "@/api/home/home";
 export default {
   components: {
     TopBar,
@@ -319,9 +260,21 @@ export default {
   },
   computed: {},
 
-  mounted() {},
+  mounted() {
+    this.getMqttList();
+  },
 
   methods: {
+    async getMqttList() {
+      const id = this.$store.getters.getUserInfo;
+      let query = {
+        id,
+      };
+      try {
+        const res = await getMqttList(query);
+        console.log("res======", res);
+      } catch (error) {}
+    },
     handleClick(row) {
       console.log(row);
     },

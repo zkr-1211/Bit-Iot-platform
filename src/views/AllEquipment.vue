@@ -11,40 +11,24 @@
         <div class="top-bar">
           <HeaderTitle name="所有设备" />
           <div class="button" @click="dialogVisible2 = true">
-            <el-button class="create-button" type="primary"
-              ><i class="el-icon-plus"></i>创建</el-button
-            >
+            <el-button class="create-button" type="primary"><i class="el-icon-plus"></i>创建</el-button>
           </div>
         </div>
       </el-col>
       <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-        <Navigation
-           :tabList="tabList"
-          @tabsIndex="tabsIndex"
-          :filtrate="true"
-        />
+        <Navigation :tabList="tabList" @tabsIndex="tabsIndex" :filtrate="true" />
       </el-col>
     </el-row>
     <EquipmentContent v-if="tabIndex == 0" />
     <!-- </div> -->
 
     <!-- 创建设备 -->
-    <el-dialog
-      title=""
-      :visible.sync="dialogVisible2"
-      width="30%"
-      :show-close="false"
-      top="40vh"
-    >
+    <el-dialog title="" :visible.sync="dialogVisible2" width="30%" :show-close="false" top="40vh">
       <h2>输入设备名称</h2>
       <input class="course-input" type="text" />
       <span slot="footer" class="dialog-footer">
-        <el-button class="cancel-button" @click="dialogVisible2 = false"
-          >取 消</el-button
-        >
-        <el-button type="primary" @click="dialogVisible2 = false"
-          >创 建</el-button
-        >
+        <el-button class="cancel-button" @click="dialogVisible2 = false">取 消</el-button>
+        <el-button type="primary" @click="dialogVisible2 = false">创 建</el-button>
       </span>
     </el-dialog>
   </div>
@@ -55,7 +39,7 @@ import Tabs from "@/components/tabs/Tabs.vue";
 import HeaderTitle from "@/components/headerTitle/HeaderTitle.vue";
 import Navigation from "@/components/navigation/Navigation.vue";
 import EquipmentContent from "@/components/equipmentContent/EquipmentContent.vue";
-import { getColumnList } from "@/api/home/home";
+import {  } from "@/api/home/home";
 export default {
   components: {
     Tabs,
@@ -66,8 +50,9 @@ export default {
 
   data() {
     return {
-      tabIndex:0,
+      tabIndex: 0,
       dialogVisible2: false,
+      id: null,
       tabList: [
         {
           title: "全部",
@@ -78,17 +63,18 @@ export default {
   computed: {},
 
   mounted() {
-    this.getColumnList();
+    // this.getColumnList();
   },
 
   methods: {
-    tabsIndex() {
-      
-    },
-    async getColumnList() {
-      const res = await getColumnList();
-      console.log("res=========", res);
-    },
+    tabsIndex() {},
+    // async getColumnList() {
+    //   try {
+    //     const res = await getColumnList();
+    //   } catch (error) {
+    //     this.$message.error(error.message);
+    //   }
+    // },
   },
 };
 </script>

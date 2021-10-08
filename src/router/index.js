@@ -8,8 +8,7 @@ import EquipmentOverview from '../views/EquipmentOverview.vue'
 
 Vue.use(VueRouter)
 
-const routes = [
-    {
+const routes = [{
         path: '/login',
         name: 'Login',
         component: Login,
@@ -19,38 +18,40 @@ const routes = [
         name: 'Home',
         component: Home,
         children: [{
-            path: '/allequipment',
-            name: 'AllEquipment',
-            component: AllEquipment
-        },
-        {
-            path: '/equipmentoverview',
-            name: 'EquipmentOverview',
-            component: EquipmentOverview
-        },
+                path: '/allequipment',
+                name: 'AllEquipment',
+                component: AllEquipment
+            },
+            {
+                path: '/equipmentoverview',
+                name: 'EquipmentOverview',
+                component: EquipmentOverview
+            },
         ]
     },
 
 ]
+
 const router = new VueRouter({
     mode: 'history',
     base: process.env.BASE_URL,
     routes
 })
-
 router.beforeEach((to, from, next) => {
-    const token1 = store.state.token
-    const token2 = localStorage.getItem('token')
-    if (token1||token2) {
-        next();
-    } else {
-        if (to.path == '/login') {
-            next();
-        } else { //不然就跳转到登录；
-            next({
-                path: '/login',
-            })
-        }
-    }
+    if (to.path === '/login') return next()
+    const token = store.getters.getToken
+    if (!token) return next('/login')
+    next()
+        // // 导航守卫限制路由跳转
+        // if (to.path === '/login') {
+        //     next()
+        // }
+        // const token = store.getters.getToken
+        // if (!token) {
+        //     next('/login')
+        // } else {
+        //     console.log("通过")
+        //     next()
+        // }
 });
 export default router
