@@ -19,7 +19,7 @@
         <Navigation :tabList="tabList" @tabsIndex="tabsIndex" :filtrate="true" />
       </el-col>
     </el-row>
-    <EquipmentContent v-if="tabIndex == 0" />
+    <EquipmentContent :mqttList="mqttList"  v-if="tabIndex == 0" />
     <!-- </div> -->
 
     <!-- 创建设备 -->
@@ -39,7 +39,7 @@ import Tabs from "@/components/tabs/Tabs.vue";
 import HeaderTitle from "@/components/headerTitle/HeaderTitle.vue";
 import Navigation from "@/components/navigation/Navigation.vue";
 import EquipmentContent from "@/components/equipmentContent/EquipmentContent.vue";
-import {  } from "@/api/home/home";
+import { getMqttList } from "@/api/home/home";
 export default {
   components: {
     Tabs,
@@ -53,6 +53,7 @@ export default {
       tabIndex: 0,
       dialogVisible2: false,
       id: null,
+      mqttList:[],
       tabList: [
         {
           title: "全部",
@@ -63,18 +64,21 @@ export default {
   computed: {},
 
   mounted() {
-    // this.getColumnList();
+    this.getMqttList();
   },
 
   methods: {
+    async getMqttList() {
+      let id = this.$store.getters.getUserInfo;
+      try {
+        const res = await getMqttList(id);
+        console.log("res======", res)
+        if (res.code == 200) {
+          this.mqttList = res.data[0].subscribe;
+        }
+      } catch (error) {}
+    },
     tabsIndex() {},
-    // async getColumnList() {
-    //   try {
-    //     const res = await getColumnList();
-    //   } catch (error) {
-    //     this.$message.error(error.message);
-    //   }
-    // },
   },
 };
 </script>

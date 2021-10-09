@@ -10,12 +10,11 @@ import router from '@/router';
 import store from '@/store';
 
 async function codeError(res) {
-    if (res.data.code == -1) {
-        throw new Error('数据请求错误');
+    if (res.data.code == -1 && res.data.reason == 'Unauthorized') {
+        router.replace('/login')
+        throw new Error('登入失效,请重新登入');
     }
-    res.data.code
 }
-
 async function errorHandler(res) {
     if (!res.status) {
         throw new Error('网络连接失败，请稍后再试');
@@ -94,8 +93,8 @@ export default (axios) => {
         async(res) => {
             // console.log("resinterceptors", res)
             if (res.status >= 200 && res.status < 300) {
-                // await codeError(res)
-                return res || {};
+                await codeError(res)
+                return res.data || {};
             } else {
                 await errorHandler(res);
             }

@@ -25,12 +25,11 @@ export default new Vuex.Store({
         clearToken(state) {
             state.token = '';
             window.localStorage.removeItem('token');
-            // clearToken(state);
         },
-        setUserInfo(state, id) {
-            if (id) {
-                state.id = id;
-                window.localStorage.setItem('id', id)
+        setUserInfo(state, playload) {
+            if (playload.id) {
+                state.id = playload.id;
+                window.localStorage.setItem('id', playload.id)
                     // console.log("token", token)
                     // Vue.$cookies.set(
                     //     `${process.env.VUE_APP_SOURCE}.token`,

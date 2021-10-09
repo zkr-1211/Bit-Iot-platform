@@ -129,7 +129,9 @@
           </div>
         </el-aside>
         <el-main>
-          <router-view />
+          <keep-alive>
+            <router-view />
+          </keep-alive>
         </el-main>
       </el-container>
     </el-container>
@@ -192,8 +194,9 @@ export default {
     };
   },
   created() {
-    this.activePath = window.sessionStorage.getItem("activePath");
-    this.selectIndex = this.activePath || "/home";
+    // this.activePath = window.sessionStorage.getItem("activePath");
+    // this.selectIndex = this.activePath || "/allequipment";
+    this.selectIndex = this.$route.path;
   },
   computed: {
     userInfo() {
@@ -264,8 +267,9 @@ export default {
           id,
           token,
         };
-        const { data: res } = await Logout(data);
-        if (res.code == -1) {
+        const res = await Logout(data);
+        console.log("resLogoutLogoutv", res);
+        if (res.code == -1 && res.reason == "Failed to authorize") {
           this.$message({
             message: "退出登入",
             type: "success",

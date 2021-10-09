@@ -4,13 +4,13 @@
     <div>
       <div class="course-content">
 
-        <div class="course-item" v-for="(item, index) in 7" :key="index">
+        <div class="course-item" v-for="(item, index) in mqttList" :key="index">
 
           <div class="checkbox">
             <el-tooltip class="item" effect="dark" content="空调" placement="top">
               <router-link to="/equipmentoverview">
                 <div class="name">
-                  空调
+                  {{item.name}}
                 </div>
               </router-link>
 
@@ -19,11 +19,11 @@
               <CheckBox />
             </div>
           </div>
-          <div class="create">蔡老师室内的空调</div>
+          <div class="create">设备介绍: {{item.description}}</div>
           <div class="bottom-message">
             <div class="classnum"></div>
             <div class="dot-bottom">
-              <div class="num">起止时间：2021/10/15-2021/10/16</div>
+              <div class="num">MQTT话题: {{item.topic}}</div>
               <div class="dot" v-if="isCheckBox"></div>
               <el-dropdown trigger="click" placement="bottom-end" v-else>
                 <span class="el-dropdown-link">
@@ -44,13 +44,7 @@
         </div>
       </div>
     </div>
-    <Dialog
-      :editDV="editDV"
-      :deleteDV="deleteDV"
-      @Cancle="(editDV = false), (deleteDV = false)"
-      @editHandleClose="editDV = false"
-      @deleteHandleClose="deleteDV = false"
-    />
+    <Dialog :editDV="editDV" :deleteDV="deleteDV" @Cancle="(editDV = false), (deleteDV = false)" @editHandleClose="editDV = false" @deleteHandleClose="deleteDV = false" />
   </div>
 </template>
 
@@ -68,6 +62,10 @@ export default {
     isCheckBox: {
       type: Boolean,
       default: false,
+    },
+    mqttList: {
+      type: Array,
+      default: [],
     },
   },
   data() {
@@ -181,20 +179,24 @@ h2 {
       line-height: 0.34rem;
       color: #333333;
       padding-left: 0.17rem;
-      margin: 0.2rem 0.15rem 0.2rem 0rem;
+      margin: 0.2rem 0.15rem 0.05rem 0rem;
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
     }
     .create {
-      font-size: 0.16rem;
+      font-size: 0.12rem;
       line-height: 0.27rem;
+      min-height: 0.75rem;
       color: #666666;
-      margin: 0.15rem 0.15rem 0.1rem 0.2rem;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      overflow: hidden;
+      margin: 0rem 0.15rem 0.1rem 0.2rem;
     }
     .bottom-message {
       font-size: 0.12rem;
-      font-weight: 400;
       line-height: 0.18rem;
       color: #999999;
       justify-content: space-between;
@@ -211,7 +213,7 @@ h2 {
         opacity: 1;
       }
       .dot-bottom {
-        margin-top: 0.25rem;
+        // margin-top: 0.25rem;
         display: flex;
         justify-content: space-between;
         align-items: center;

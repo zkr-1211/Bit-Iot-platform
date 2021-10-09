@@ -115,32 +115,32 @@ export default {
             id,
             password,
           };
-          try {
-            const { data: res } = await LoginApi(data);
-            console.log("res", res);
+          // try {
+            const res = await LoginApi(data);
+            console.log("res", res)
             if (res.code === 200) {
               const token = res.data.token;
               this.$store.commit("setToken", token);
-              console.log("id", id)
-              this.$store.commit("setUserInfo", id);
+              this.$store.commit("setUserInfo", { id: id, password: 2 });
               this.$router.replace({
-                path: "/home",
+                path: "/equipmentoverview",
               });
               this.$message({
                 message: "登入成功",
                 type: "success",
               });
             } else {
+                this.resetForm(formName);
               this.$router.replace({
                 path: "/login",
               });
               this.$message.error("登入失败");
             }
 
-            this.resetForm(formName);
-          } catch (error) {
-            this.$message.error("登入失败");
-          }
+          
+          // } catch (error) {
+            // this.$message.error("登入失败");
+          // }
         } else {
           this.$message.error("请输入内容");
           return false;
