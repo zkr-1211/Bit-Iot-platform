@@ -12,6 +12,7 @@ import store from '@/store';
 async function codeError(res) {
     if (res.data.code == -1 && res.data.reason == 'Unauthorized') {
         router.replace('/login')
+        store.commit('clearToken');
         throw new Error('登入失效,请重新登入');
     }
 }

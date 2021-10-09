@@ -8,11 +8,11 @@
 
           <div class="checkbox">
             <el-tooltip class="item" effect="dark" content="空调" placement="top">
-              <router-link to="/equipmentoverview">
+              <!-- <router-link to="/equipmentoverview"> -->
                 <div class="name">
                   {{item.name}}
                 </div>
-              </router-link>
+              <!-- </router-link> -->
 
             </el-tooltip>
             <div v-if="isCheckBox" class="el-checkbox">
@@ -33,7 +33,7 @@
                   <div @click="editDV = true">
                     <el-dropdown-item>重命名</el-dropdown-item>
                   </div>
-                  <div @click="deleteDV = true">
+                  <div @click="deleteMqtt(item.name,item.topic)">
                     <el-dropdown-item>删除</el-dropdown-item>
                   </div>
                 </el-dropdown-menu>
@@ -52,6 +52,8 @@
 import Dot from "@/components/dot/Dot";
 import Dialog from "@/components/dialog/Dialog.vue";
 import CheckBox from "@/components/checkBox/CheckBox.vue";
+import { deleteMqtt } from "@/api/home/home";
+
 export default {
   components: {
     Dot,
@@ -75,11 +77,44 @@ export default {
       checked: false,
     };
   },
-  computed: {},
+  computed: {
+    userInfo() {
+      return this.$store.getters.getUserInfo;
+    },
+  },
 
   mounted() {},
 
-  methods: {},
+  methods: {
+    async deleteMqtt(name, topic) {
+      let data = {
+        id: this.userInfo,
+        name,
+        topic,
+      };
+      this.$confirm("此操作将删除该订阅, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(async () => {
+          try {
+            await deleteMqtt(data);
+            this.$parent.getMqttList();
+            this.$message({
+              type: "success",
+              message: "删除成功!",
+            });
+          } catch (error) {
+            this.$message({
+              type: "error",
+              message: error.message,
+            });
+          }
+        })
+        .catch(() => {});
+    },
+  },
 };
 </script>
 <style lang='scss' scoped>
@@ -185,7 +220,7 @@ h2 {
       overflow: hidden;
     }
     .create {
-      font-size: 0.12rem;
+      font-size: 0.15rem;
       line-height: 0.27rem;
       min-height: 0.75rem;
       color: #666666;

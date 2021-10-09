@@ -138,19 +138,12 @@
           <el-form-item label="发送消息" prop="msg">
             <el-input v-model="ruleForm.msg"></el-input>
           </el-form-item>
-          <!-- <el-form-item label="任务类型" prop="region1">
-            <el-select v-model="ruleForm.region1" placeholder="请选择执行时机">
-              <el-option label="定期执行" value="定期执行"></el-option>
-              <el-option label="定期执行1" value="定期执行1"></el-option>
-            </el-select>
-          </el-form-item> -->
           <el-form-item label="定时时间单位" prop="peroid">
             <el-select v-model="ruleForm.peroid" placeholder="请选择周期间隔">
               <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
               </el-option>
             </el-select>
           </el-form-item>
-
           <el-form-item label="执行的时间" prop="at" v-if="ruleForm.peroid=='day'||ruleForm.peroid=='week'||ruleForm.peroid=='month'">
             <el-col :span="11">
               <el-form-item prop="at">
@@ -161,18 +154,6 @@
           <el-form-item label="定时时间间隔" prop="every">
             <el-input v-model.number="ruleForm.every"></el-input>
           </el-form-item>
-          <!-- <el-form-item label="间隔" prop="region3">
-            <el-select v-model="ruleForm.region3" placeholder="请选择周期间隔">
-              <el-option label="5分钟" value="5分钟"></el-option>
-              <el-option label="10分钟" value="10分钟"></el-option>
-            </el-select>
-          </el-form-item> -->
-          <!-- <el-form-item label="选择事件" prop="region4">
-            <el-select v-model="ruleForm.region4" placeholder="请选择事件">
-              <el-option label="进入玄关" value="进入玄关"></el-option>
-              <el-option label="进入玄关1" value="进入玄关1"></el-option>
-            </el-select>
-          </el-form-item> -->
         </el-form>
         <div class="dialog-footer">
           <el-button class="cancel-button" @click="resetForm('ruleForm')">取 消</el-button>
@@ -333,7 +314,7 @@ export default {
         name: row.name,
         topic: row.topic,
       };
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+      this.$confirm("此操作将删除该订阅, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
@@ -353,15 +334,14 @@ export default {
             });
           }
         })
-        .catch(() => {
-        });
+        .catch(() => {});
     },
     handleClickTask(row) {
       let data = {
         id: this.userInfo,
         taskName: row.name,
       };
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+      this.$confirm("此操作将删除该任务, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
@@ -381,8 +361,7 @@ export default {
             });
           }
         })
-        .catch(() => {
-        });
+        .catch(() => {});
     },
     sendMessage(row) {
       let data = {
@@ -398,25 +377,27 @@ export default {
         // inputErrorMessage: "邮箱格式不正确",
       })
         .then(async ({ value }) => {
-          try {
-            await sendMsg(data);
-            this.$message({
-              type: "success",
-              message: "你发送的消息是: " + value,
-            });
-          } catch (error) {
+          if (value) {
+            try {
+              await sendMsg(data);
+              this.$message({
+                type: "success",
+                message: "你发送的消息是: " + value,
+              });
+            } catch (error) {
+              this.$message({
+                type: "error",
+                message: error.message,
+              });
+            }
+          } else {
             this.$message({
               type: "error",
-              message: error.message,
+              message: "消息为空",
             });
           }
         })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "取消发送",
-          });
-        });
+        .catch(() => {});
     },
     handleSelectionChange() {},
     submitForm(formName) {

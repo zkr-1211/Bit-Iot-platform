@@ -10,7 +10,7 @@
       <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
         <div class="top-bar">
           <HeaderTitle name="所有设备" />
-          <div class="button" @click="dialogVisible2 = true">
+          <div class="button" @click="createMqttShow = true">
             <el-button class="create-button" type="primary"><i class="el-icon-plus"></i>创建</el-button>
           </div>
         </div>
@@ -19,16 +19,18 @@
         <Navigation :tabList="tabList" @tabsIndex="tabsIndex" :filtrate="true" />
       </el-col>
     </el-row>
-    <EquipmentContent :mqttList="mqttList"  v-if="tabIndex == 0" />
+    <EquipmentContent :mqttList="mqttList" v-if="tabIndex == 0" />
     <!-- </div> -->
 
-    <!-- 创建设备 -->
-    <el-dialog title="" :visible.sync="dialogVisible2" width="30%" :show-close="false" top="40vh">
-      <h2>输入设备名称</h2>
-      <input class="course-input" type="text" />
+    <!-- 创建订阅 -->
+    <el-dialog title="" :visible.sync="createMqttShow" width="30%" :show-close="false" top="30vh">
+      <h2>创建订阅</h2>
+      <div class="create-name"><span>设备名:</span><input class="course-input" type="text" v-model="name" /></div>
+      <div class="create-name"><span>MQTT话题:</span><input class="course-input" type="text" v-model="topic" /></div>
+      <div class="create-name"><span>设备介绍:</span><input class="course-input" type="text" v-model="des" /></div>
       <span slot="footer" class="dialog-footer">
-        <el-button class="cancel-button" @click="dialogVisible2 = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible2 = false">创 建</el-button>
+        <el-button class="cancel-button" @click="createMqttShow = false">取 消</el-button>
+        <el-button type="primary" @click="createMqtt">创 建</el-button>
       </span>
     </el-dialog>
   </div>
@@ -39,7 +41,7 @@ import Tabs from "@/components/tabs/Tabs.vue";
 import HeaderTitle from "@/components/headerTitle/HeaderTitle.vue";
 import Navigation from "@/components/navigation/Navigation.vue";
 import EquipmentContent from "@/components/equipmentContent/EquipmentContent.vue";
-import { getMqttList } from "@/api/home/home";
+import { getMqttList,createMqtt } from "@/api/home/home";
 export default {
   components: {
     Tabs,
@@ -51,9 +53,12 @@ export default {
   data() {
     return {
       tabIndex: 0,
-      dialogVisible2: false,
+      createMqttShow: false,
+      name: "",
+      topic: "",
+      des: "",
       id: null,
-      mqttList:[],
+      mqttList: [],
       tabList: [
         {
           title: "全部",
@@ -61,7 +66,11 @@ export default {
       ],
     };
   },
-  computed: {},
+  computed: {
+    userInfo() {
+      return this.$store.getters.getUserInfo;
+    },
+  },
 
   mounted() {
     this.getMqttList();
@@ -72,11 +81,40 @@ export default {
       let id = this.$store.getters.getUserInfo;
       try {
         const res = await getMqttList(id);
-        console.log("res======", res)
         if (res.code == 200) {
-          this.mqttList = res.data[0].subscribe;
+          this.mqttList = res.data[0].subscribe.reverse();
         }
       } catch (error) {}
+    },
+       async createMqtt() {
+      let data = {
+        id: this.userInfo,
+        name: this.name,
+        topic: this.topic,
+        discription: this.des,
+      };
+      if (this.name.length <= 0) {
+        this.$message.error("设备名不能为空");
+      } else {
+        try {
+          await createMqtt(data);
+          this.name = "";
+          this.topic = "";
+          this.des = "";
+          this.createMqttShow = false;
+          this.getMqttList();
+          this.$message({
+            message: "创建成功",
+            type: "success",
+          });
+        } catch (error) {
+          this.$message.error("创建失败");
+          this.name = "";
+          this.topic = "";
+          this.des = "";
+          this.createMqttShow = false;
+        }
+      }
     },
     tabsIndex() {},
   },
@@ -91,7 +129,7 @@ export default {
 ::v-deep .el-dialog__title {
   font-size: 0.2rem;
   font-weight: bold;
-  line-height: 0.4rem;
+  line-height: 0rem;
   color: #2a77ff;
   margin-left: 0.43rem;
 }
@@ -101,11 +139,22 @@ h2 {
   color: #000000;
   font-size: 0.2rem;
 }
+.create-name {
+  text-align: left;
+  display: flex;
+  align-items: center;
+  span {
+    display: block;
+    width: 0.8rem;
+    padding-top: 0.5rem;
+  }
+}
 .course-input {
+  margin: 0.3rem 0rem 0rem 0.3rem;
   font-size: 0.2rem;
   color: #666666;
   padding: 0.1rem 0rem 0.1rem 0rem;
-  width: 100%;
+  width: 80%;
   border-bottom: 0.01rem solid #e0e0e0 !important;
   border: none;
 }
