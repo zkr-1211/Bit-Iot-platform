@@ -38,25 +38,54 @@
         <el-col :xs="24" :sm="24" :md="14" :lg="16" :xl="16">
           <div class="top-right">
             <TopBar name="我的订阅">
-              <Button name="创建" slot="A" @click.native="createMqttShow = true">
+              <Button
+                name="创建"
+                slot="A"
+                @click.native="createMqttShow = true"
+              >
                 <img src="@/assets/image/home/ic_button_add.svg" alt="" />
               </Button>
             </TopBar>
             <!--内容表格-->
             <div class="table">
-              <el-table :header-cell-style="{ background: '#EDEFF3', color: '#000000' }" :data="mqttList" border style="width: 100%" @selection-change="handleSelectionChange">
-                <el-table-column type="selection" width="50" :cell-style="{ textAlign: 'center' }">
+              <el-table
+                v-loading="isLoading1"
+                :header-cell-style="{ background: '#EDEFF3', color: '#000000' }"
+                :data="mqttList"
+                border
+                style="width: 100%"
+                @selection-change="handleSelectionChange"
+              >
+                <el-table-column
+                  type="selection"
+                  width="50"
+                  :cell-style="{ textAlign: 'center' }"
+                >
                 </el-table-column>
                 <el-table-column prop="name" label="设备名" width="120">
                 </el-table-column>
                 <el-table-column prop="topic" label="MQTT话题" width="120">
                 </el-table-column>
-                <el-table-column prop="description" label="设备介绍" width="200">
+                <el-table-column
+                  prop="description"
+                  label="设备介绍"
+                  width="200"
+                >
                 </el-table-column>
                 <el-table-column fixed="right" label="操作" min-width="120">
                   <template slot-scope="scope">
-                    <el-button @click="handleClick(scope.row)" type="text" size="small">删除</el-button>
-                    <el-button type="text" size="small" @click="sendMessage(scope.row)">发消息</el-button>
+                    <el-button
+                      @click="handleClick(scope.row)"
+                      type="text"
+                      size="small"
+                      >删除</el-button
+                    >
+                    <el-button
+                      type="text"
+                      size="small"
+                      @click="sendMessage(scope.row)"
+                      >发消息</el-button
+                    >
                     <!-- <el-button type="text" size="small">查看</el-button> -->
                   </template>
                 </el-table-column>
@@ -79,8 +108,19 @@
         </Button>
       </TopBar>
       <div class="table">
-        <el-table :header-cell-style="{ background: '#EDEFF3', color: '#000000' }" :data="periodList" border style="width: 100%" @selection-change="handleSelectionChange">
-          <el-table-column type="selection" width="50" :cell-style="{ textAlign: 'center' }">
+        <el-table
+          v-loading="isLoading2"
+          :header-cell-style="{ background: '#EDEFF3', color: '#000000' }"
+          :data="periodList"
+          border
+          style="width: 100%"
+          @selection-change="handleSelectionChange"
+        >
+          <el-table-column
+            type="selection"
+            width="50"
+            :cell-style="{ textAlign: 'center' }"
+          >
           </el-table-column>
           <el-table-column prop="name" label="任务名" width="80">
           </el-table-column>
@@ -98,7 +138,12 @@
           </el-table-column>
           <el-table-column fixed="right" label="操作" min-width="120">
             <template slot-scope="scope">
-              <el-button @click="handleClickTask(scope.row)" type="text" size="small">删除</el-button>
+              <el-button
+                @click="handleClickTask(scope.row)"
+                type="text"
+                size="small"
+                >删除</el-button
+              >
               <!-- <el-button type="text" size="small" @click="sendMessage(scope.row)">发消息</el-button> -->
               <!-- <el-button type="text" size="small">查看</el-button> -->
             </template>
@@ -111,21 +156,50 @@
       </div>
     </div>
     <!-- 创建订阅 -->
-    <el-dialog title="" :visible.sync="createMqttShow" width="30%" :show-close="false" top="30vh">
+    <el-dialog
+      title=""
+      :visible.sync="createMqttShow"
+      width="30%"
+      :show-close="false"
+      top="30vh"
+    >
       <h2>创建订阅</h2>
-      <div class="create-name"><span>设备名:</span><input class="course-input" type="text" v-model="name" /></div>
-      <div class="create-name"><span>MQTT话题:</span><input class="course-input" type="text" v-model="topic" /></div>
-      <div class="create-name"><span>设备介绍:</span><input class="course-input" type="text" v-model="des" /></div>
+      <div class="create-name">
+        <span>设备名:</span
+        ><input class="course-input" type="text" v-model="name" />
+      </div>
+      <div class="create-name">
+        <span>MQTT话题:</span
+        ><input class="course-input" type="text" v-model="topic" />
+      </div>
+      <div class="create-name">
+        <span>设备介绍:</span
+        ><input class="course-input" type="text" v-model="des" />
+      </div>
       <span slot="footer" class="dialog-footer">
-        <el-button class="cancel-button" @click="createMqttShow = false">取 消</el-button>
+        <el-button class="cancel-button" @click="createMqttShow = false"
+          >取 消</el-button
+        >
         <el-button type="primary" @click="createMqtt">创 建</el-button>
       </span>
     </el-dialog>
     <!-- 创建任务计划 -->
-    <el-dialog title="" :visible.sync="createTask" width="30%" :show-close="false" top="20vh">
+    <el-dialog
+      title=""
+      :visible.sync="createTask"
+      width="30%"
+      :show-close="false"
+      top="20vh"
+    >
       <h2>创建计划任务</h2>
       <div class="contentDv">
-        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
+        <el-form
+          :model="ruleForm"
+          :rules="rules"
+          ref="ruleForm"
+          label-width="120px"
+          class="demo-ruleForm"
+        >
           <el-form-item label="任务名" prop="taskName">
             <el-input v-model="ruleForm.taskName"></el-input>
           </el-form-item>
@@ -140,14 +214,32 @@
           </el-form-item>
           <el-form-item label="定时时间单位" prop="peroid">
             <el-select v-model="ruleForm.peroid" placeholder="请选择周期间隔">
-              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="执行的时间" prop="at" v-if="ruleForm.peroid=='day'||ruleForm.peroid=='week'||ruleForm.peroid=='month'">
+          <el-form-item
+            label="执行的时间"
+            prop="at"
+            v-if="
+              ruleForm.peroid == 'day' ||
+              ruleForm.peroid == 'week' ||
+              ruleForm.peroid == 'month'
+            "
+          >
             <el-col :span="11">
               <el-form-item prop="at">
-                <el-time-picker placeholder="选择时间" v-model="ruleForm.at" style="width: 100%" value-format="HH|mm|ss"></el-time-picker>
+                <el-time-picker
+                  placeholder="选择时间"
+                  v-model="ruleForm.at"
+                  style="width: 100%"
+                  value-format="HH|mm|ss"
+                ></el-time-picker>
               </el-form-item>
             </el-col>
           </el-form-item>
@@ -156,8 +248,12 @@
           </el-form-item>
         </el-form>
         <div class="dialog-footer">
-          <el-button class="cancel-button" @click="resetForm('ruleForm')">取 消</el-button>
-          <el-button type="primary" @click="submitForm('ruleForm')">添 加</el-button>
+          <el-button class="cancel-button" @click="resetForm('ruleForm')"
+            >取 消</el-button
+          >
+          <el-button type="primary" @click="submitForm('ruleForm')"
+            >添 加</el-button
+          >
         </div>
       </div>
     </el-dialog>
@@ -187,6 +283,8 @@ export default {
       createMqttShow: false,
       editDV: false,
       deleteDV: false,
+      isLoading1: true,
+      isLoading2: true,
       mqttList: [],
       periodList: [],
       name: "",
@@ -260,21 +358,27 @@ export default {
   methods: {
     async getMqttList() {
       try {
+        this.isLoading1 = true;
         const res = await getMqttList(this.userInfo);
         if (res.code == 200) {
           this.mqttList = res.data[0].subscribe.reverse();
+          this.isLoading1 = false;
         }
       } catch (error) {
+        this.isLoading1 = false;
         this.$message.error(error.message);
       }
     },
     async getPeriodList() {
       try {
+        this.isLoading2 = true;
         const res = await getPeriodList(this.userInfo);
         if (res.code == 200) {
           this.periodList = res.data;
+          this.isLoading2 = false;
         }
       } catch (error) {
+        this.isLoading2 = false;
         this.$message.error(error.message);
       }
     },

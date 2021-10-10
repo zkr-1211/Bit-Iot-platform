@@ -1,6 +1,7 @@
 <!--  -->
 <template>
   <div class="body">
+    <el-skeleton :rows="4" animated v-if="isLoading"/>
     <div>
       <div class="course-content">
 
@@ -64,6 +65,10 @@ export default {
     isCheckBox: {
       type: Boolean,
       default: false,
+    },
+    isLoading: {
+      type: Boolean,
+      default: true,
     },
     mqttList: {
       type: Array,

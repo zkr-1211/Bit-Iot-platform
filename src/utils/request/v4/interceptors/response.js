@@ -4,16 +4,20 @@ import {
     SystemException,
     UserException
 } from '@/utils/request/exception';
-
-// import { MessageBox } from 'element-ui';
 import router from '@/router';
 import store from '@/store';
 
+
 async function codeError(res) {
-    if (res.data.code == -1 && res.data.reason == 'Unauthorized') {
-        router.replace('/login')
-        store.commit('clearToken');
-        throw new Error('登入失效,请重新登入');
+    if (res.data.code == -1) {
+        if (res.data.reason == 'Unauthorized') {
+            router.replace('/login')
+            store.commit('clearToken');
+            throw new Error('登入失效,请重新登入');
+        } else {
+            throw new Error(res.data.reason);
+        }
+
     }
 }
 async function errorHandler(res) {
@@ -91,7 +95,7 @@ async function errorHandler(res) {
 
 export default (axios) => {
     axios.interceptors.response.use(
-        async(res) => {
+        async (res) => {
             // console.log("resinterceptors", res)
             if (res.status >= 200 && res.status < 300) {
                 await codeError(res)
@@ -100,7 +104,7 @@ export default (axios) => {
                 await errorHandler(res);
             }
         },
-        async(error) => {
+        async (error) => {
             if (!error.response) {
                 throw new Error('网络连接失败，请稍后再试');
             }

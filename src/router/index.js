@@ -8,7 +8,12 @@ import EquipmentOverview from '../views/EquipmentOverview.vue'
 
 Vue.use(VueRouter)
 
-const routes = [{
+const routes = [
+    {
+        path: '/',
+        redirect: '/login'
+    },
+    {
         path: '/login',
         name: 'Login',
         component: Login,

@@ -11,25 +11,52 @@
         <div class="top-bar">
           <HeaderTitle name="所有设备" />
           <div class="button" @click="createMqttShow = true">
-            <el-button class="create-button" type="primary"><i class="el-icon-plus"></i>创建</el-button>
+            <el-button class="create-button" type="primary"
+              ><i class="el-icon-plus"></i>创建</el-button
+            >
           </div>
         </div>
       </el-col>
       <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-        <Navigation :tabList="tabList" @tabsIndex="tabsIndex" :filtrate="true" />
+        <Navigation
+          :tabList="tabList"
+          @tabsIndex="tabsIndex"
+          :filtrate="true"
+        />
       </el-col>
     </el-row>
-    <EquipmentContent :mqttList="mqttList" v-if="tabIndex == 0" />
+    <EquipmentContent
+      :isLoading="isLoading"
+      :mqttList="mqttList"
+      v-if="tabIndex == 0"
+    />
     <!-- </div> -->
 
     <!-- 创建订阅 -->
-    <el-dialog title="" :visible.sync="createMqttShow" width="30%" :show-close="false" top="30vh">
+    <el-dialog
+      title=""
+      :visible.sync="createMqttShow"
+      width="30%"
+      :show-close="false"
+      top="30vh"
+    >
       <h2>创建订阅</h2>
-      <div class="create-name"><span>设备名:</span><input class="course-input" type="text" v-model="name" /></div>
-      <div class="create-name"><span>MQTT话题:</span><input class="course-input" type="text" v-model="topic" /></div>
-      <div class="create-name"><span>设备介绍:</span><input class="course-input" type="text" v-model="des" /></div>
+      <div class="create-name">
+        <span>设备名:</span
+        ><input class="course-input" type="text" v-model="name" />
+      </div>
+      <div class="create-name">
+        <span>MQTT话题:</span
+        ><input class="course-input" type="text" v-model="topic" />
+      </div>
+      <div class="create-name">
+        <span>设备介绍:</span
+        ><input class="course-input" type="text" v-model="des" />
+      </div>
       <span slot="footer" class="dialog-footer">
-        <el-button class="cancel-button" @click="createMqttShow = false">取 消</el-button>
+        <el-button class="cancel-button" @click="createMqttShow = false"
+          >取 消</el-button
+        >
         <el-button type="primary" @click="createMqtt">创 建</el-button>
       </span>
     </el-dialog>
@@ -41,7 +68,7 @@ import Tabs from "@/components/tabs/Tabs.vue";
 import HeaderTitle from "@/components/headerTitle/HeaderTitle.vue";
 import Navigation from "@/components/navigation/Navigation.vue";
 import EquipmentContent from "@/components/equipmentContent/EquipmentContent.vue";
-import { getMqttList,createMqtt } from "@/api/home/home";
+import { getMqttList, createMqtt } from "@/api/home/home";
 export default {
   components: {
     Tabs,
@@ -59,6 +86,7 @@ export default {
       des: "",
       id: null,
       mqttList: [],
+      isLoading: true,
       tabList: [
         {
           title: "全部",
@@ -80,13 +108,18 @@ export default {
     async getMqttList() {
       let id = this.$store.getters.getUserInfo;
       try {
+        this.isLoading = true;
         const res = await getMqttList(id);
         if (res.code == 200) {
           this.mqttList = res.data[0].subscribe.reverse();
+          this.isLoading = false;
         }
-      } catch (error) {}
+      } catch (error) {
+        this.isLoading = false;
+        this.$message.error(error.message);
+      }
     },
-       async createMqtt() {
+    async createMqtt() {
       let data = {
         id: this.userInfo,
         name: this.name,
