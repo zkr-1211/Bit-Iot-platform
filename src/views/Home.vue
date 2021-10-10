@@ -244,14 +244,11 @@
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
 import "element-ui/lib/theme-chalk/display.css";
 import { Logout } from "@/api/auth/auth";
 export default {
   name: "Home",
   components: {
-    HelloWorld,
   },
   data() {
     return {

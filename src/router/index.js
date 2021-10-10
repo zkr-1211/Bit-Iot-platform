@@ -1,13 +1,11 @@
 import Vue from 'vue'
 import store from '@/store'
-import VueRouter from 'vue-router'
-import Login from '../views/Login.vue'
-import Home from '../views/Home.vue'
-import AllEquipment from '../views/AllEquipment.vue'
-import EquipmentOverview from '../views/EquipmentOverview.vue'
-
+// import VueRouter from 'vue-router'
+const Login = () => import(/* webpackChunkName:"login"*/ '@/views/Login')
+const Home = () => import(/* webpackChunkName:"Home"*/ '@/views/Home')
+const AllEquipment = () => import(/* webpackChunkName:"AllEquipment"*/ '@/views/AllEquipment')
+const EquipmentOverview = () => import(/* webpackChunkName:"EquipmentOverview"*/ '@/views/EquipmentOverview')
 Vue.use(VueRouter)
-
 const routes = [
     {
         path: '/',
@@ -23,15 +21,15 @@ const routes = [
         name: 'Home',
         component: Home,
         children: [{
-                path: '/allequipment',
-                name: 'AllEquipment',
-                component: AllEquipment
-            },
-            {
-                path: '/equipmentoverview',
-                name: 'EquipmentOverview',
-                component: EquipmentOverview
-            },
+            path: '/allequipment',
+            name: 'AllEquipment',
+            component: AllEquipment
+        },
+        {
+            path: '/equipmentoverview',
+            name: 'EquipmentOverview',
+            component: EquipmentOverview
+        },
         ]
     },
 
@@ -47,16 +45,5 @@ router.beforeEach((to, from, next) => {
     const token = store.getters.getToken
     if (!token) return next('/login')
     next()
-        // // 导航守卫限制路由跳转
-        // if (to.path === '/login') {
-        //     next()
-        // }
-        // const token = store.getters.getToken
-        // if (!token) {
-        //     next('/login')
-        // } else {
-        //     console.log("通过")
-        //     next()
-        // }
 });
 export default router

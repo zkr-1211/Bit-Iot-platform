@@ -3,7 +3,7 @@
   <div class="body">
     <div class="breadcrumb">
       <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/' }">我的设备</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/allequipment' }">我的设备</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <el-row :gutter="32" class="el-row">
