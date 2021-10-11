@@ -1,28 +1,29 @@
 <!--  -->
 <template>
   <div class="body">
-    <el-skeleton :rows="4" animated v-if="isLoading"/>
+    <el-skeleton :rows="4" animated v-if="isLoading" />
     <div>
       <div class="course-content">
 
         <div class="course-item" v-for="(item, index) in mqttList" :key="index">
+          <router-link to="/equipmentoverview">
+            <div class="checkbox">
+              <el-tooltip class="item" effect="dark" :content="item.name" placement="top">
 
-          <div class="checkbox">
-            <el-tooltip class="item" effect="dark" content="空调" placement="top">
-              <!-- <router-link to="/equipmentoverview"> -->
                 <div class="name">
                   {{item.name}}
                 </div>
-              <!-- </router-link> -->
 
-            </el-tooltip>
-            <div v-if="isCheckBox" class="el-checkbox">
-              <CheckBox />
+              </el-tooltip>
+              <div v-if="isCheckBox" class="el-checkbox">
+                <CheckBox />
+              </div>
             </div>
-          </div>
-          <div class="create">设备介绍: {{item.description}}</div>
+            <div class="create">设备介绍: {{item.description}}</div>
+          </router-link>
           <div class="bottom-message">
             <div class="classnum"></div>
+
             <div class="dot-bottom">
               <div class="num">MQTT话题: {{item.topic}}</div>
               <div class="dot" v-if="isCheckBox"></div>
@@ -40,6 +41,7 @@
                 </el-dropdown-menu>
               </el-dropdown>
             </div>
+
           </div>
 
         </div>

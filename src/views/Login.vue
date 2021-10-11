@@ -22,7 +22,7 @@
               <el-input placeholder="密码" type="password" v-model.number="ruleForm.password" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item label="" prop="confirmPassword" v-if="!isLogin">
-              <el-input type="password" placeholder="确认密码" v-model.number="ruleForm.confirmPassword" ="off"></el-input>
+              <el-input type="password" placeholder="确认密码" v-model.number="ruleForm.confirmPassword" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item>
               <div class="forget-password" v-if="isLogin">
@@ -123,7 +123,7 @@ export default {
               this.$store.commit("setToken", token);
               this.$store.commit("setUserInfo", { id: id, password: 2 });
               this.$router.replace({
-                path: "/equipmentoverview",
+                path: "/allequipment",
               });
               this.$message({
                 message: "登入成功",

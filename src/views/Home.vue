@@ -6,24 +6,25 @@
           <img src="@/assets/image/home/ic_nav_drawer.svg" alt="" />
         </div>
         <div class="shuke-logo">
-          <img src="@/assets/image/home/icon_shuke.svg" alt="" />
+          <img src="@/assets/image/home/logo.svg" alt="" />
         </div>
         <div class="right-person">
           <div class="trigon"></div>
           <div class="right">
             <el-dropdown trigger="click" placement="bottom-end">
               <span class="el-dropdown-link">
-                <div class="header"></div>
+                <!-- 头像 -->
+                <div class="header">
+                  <img src="@/assets/image/home/header.svg" alt="">
+                </div>
               </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>账户信息</el-dropdown-item>
-                <el-dropdown-item @click.native="Logout()"
-                  >退出登录</el-dropdown-item
-                >
+                <el-dropdown-item @click.native="Logout()">退出登录</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
             <div class="name">{{ userInfo }}</div>
-            <div class="message">
+            <!-- <div class="message">
               <el-dropdown trigger="click" placement="bottom-end">
                 <span class="el-dropdown-link">
                   <el-badge :value="12" class="item">
@@ -99,7 +100,7 @@
                   </div>
                 </el-dropdown-menu>
               </el-dropdown>
-            </div>
+            </div> -->
             <div class="full-screen" @click="fullScreenEvent">
               <div class="image">
                 <img src="@/assets/image/home/icon_fullscreen_b.svg" alt="" />
@@ -116,42 +117,22 @@
         <el-aside class="hidden-md-and-down">
           <el-row class="tac">
             <el-col>
-              <el-menu
-                router
-                text-color="#666666"
-                :default-active="activePath"
-                class="el-menu-vertical-demo"
-                @select="handleSelect"
-                @open="handleOpen"
-                @close="handleClose"
-              >
-                <el-menu-item
+              <el-menu router text-color="#666666" :default-active="activePath" class="el-menu-vertical-demo" @select="handleSelect" @open="handleOpen" @close="handleClose">
+                <el-menu-item @click="saveNavState('/allequipment')" index="/allequipment" :class="
+                    selectIndex == '/allequipment' ? 'selectStyle' : ''
+                  ">
+                  <img v-if="selectIndex == '/allequipment'" src="@/assets/image/leftbar/leftbar_home_s.svg" alt="" />
+                  <img v-else src="@/assets/image/leftbar/leftbar_home_n.svg" alt="" />
+                  <span>所有设备</span>
+                </el-menu-item>
+
+                <!-- <el-menu-item
                   @click="saveNavState('/equipmentoverview')"
                   index="/equipmentoverview"
-                  :class="
-                    selectIndex == '/equipmentoverview' ? 'selectStyle' : ''
-                  "
+                  :class="selectIndex == '/equipmentoverview' ? 'selectStyle' : ''"
                 >
                   <img
                     v-if="selectIndex == '/equipmentoverview'"
-                    src="@/assets/image/leftbar/leftbar_home_s.svg"
-                    alt=""
-                  />
-                  <img
-                    v-else
-                    src="@/assets/image/leftbar/leftbar_home_n.svg"
-                    alt=""
-                  />
-                  <span>我的设备</span>
-                </el-menu-item>
-
-                <el-menu-item
-                  @click="saveNavState('/allequipment')"
-                  index="/allequipment"
-                  :class="selectIndex == '/allequipment' ? 'selectStyle' : ''"
-                >
-                  <img
-                    v-if="selectIndex == '/allequipment'"
                     src="@/assets/image/leftbar/leftbar_course_s.svg"
                     alt=""
                   />
@@ -161,7 +142,7 @@
                     alt=""
                   />
                   <span>所有设备</span>
-                </el-menu-item>
+                </el-menu-item> -->
                 <!-- <el-menu-item @click="saveNavState('/home')" index="/" :class="selectIndex == '/home' ? 'selectStyle' : ''">
                   <img v-if="selectIndex == '/home'" src="@/assets/image/leftbar/leftbar_recordvideo_s.svg" alt="" />
                   <img v-else src="@/assets/image/leftbar/leftbar_recordvideo_n.svg" alt="" />
@@ -179,44 +160,17 @@
       </el-container>
     </el-container>
     style="marginleft: 0.2rem"
-    <el-drawer
-      :modal="true"
-      :show-close="false"
-      size="28%"
-      title=""
-      :visible.sync="drawer"
-      :direction="direction"
-    >
-     <el-menu
-                router
-                text-color="#666666"
-                :default-active="activePath"
-                class="el-menu-vertical-demo"
-                @select="handleSelect"
-                @open="handleOpen"
-                @close="handleClose"
-              >
-                <el-menu-item
-                  @click="saveNavState('/equipmentoverview')"
-                  index="/equipmentoverview"
-                  :class="
-                    selectIndex == '/equipmentoverview' ? 'selectStyle' : ''
-                  "
-                >
-                  <img
-                    v-if="selectIndex == '/equipmentoverview'"
-                    src="@/assets/image/leftbar/leftbar_home_s.svg"
-                    alt=""
-                  />
-                  <img
-                    v-else
-                    src="@/assets/image/leftbar/leftbar_home_n.svg"
-                    alt=""
-                  />
-                  <span style="margin-left: 0.2rem">我的设备</span>
-                </el-menu-item>
+    <el-drawer :modal="true" :show-close="false" size="28%" title="" :visible.sync="drawer" :direction="direction">
+      <el-menu router text-color="#666666" :default-active="activePath" class="el-menu-vertical-demo" @select="handleSelect" @open="handleOpen" @close="handleClose">
+        <el-menu-item @click="saveNavState('/allequipment')" index="/allequipment" :class="
+                    selectIndex == '/allequipment' ? 'selectStyle' : ''
+                  ">
+          <img v-if="selectIndex == '/allequipment'" src="@/assets/image/leftbar/leftbar_home_s.svg" alt="" />
+          <img v-else src="@/assets/image/leftbar/leftbar_home_n.svg" alt="" />
+          <span style="margin-left: 0.2rem">所有设备</span>
+        </el-menu-item>
 
-                <el-menu-item
+        <!-- <el-menu-item
                   @click="saveNavState('/allequipment')"
                   index="/allequipment"
                   :class="selectIndex == '/allequipment' ? 'selectStyle' : ''"
@@ -232,13 +186,13 @@
                     alt=""
                   />
                   <span style="margin-left: 0.2rem">所有设备</span>
-                </el-menu-item>
-                <!-- <el-menu-item @click="saveNavState('/home')" index="/" :class="selectIndex == '/home' ? 'selectStyle' : ''">
+                </el-menu-item> -->
+        <!-- <el-menu-item @click="saveNavState('/home')" index="/" :class="selectIndex == '/home' ? 'selectStyle' : ''">
                   <img v-if="selectIndex == '/home'" src="@/assets/image/leftbar/leftbar_recordvideo_s.svg" alt="" />
                   <img v-else src="@/assets/image/leftbar/leftbar_recordvideo_n.svg" alt="" />
                   <span>事件管理</span>
                 </el-menu-item> -->
-              </el-menu>
+      </el-menu>
     </el-drawer>
   </div>
 </template>
@@ -248,8 +202,7 @@ import "element-ui/lib/theme-chalk/display.css";
 import { Logout } from "@/api/auth/auth";
 export default {
   name: "Home",
-  components: {
-  },
+  components: {},
   data() {
     return {
       drawer: false,
@@ -335,17 +288,17 @@ export default {
       //     id,
       //     token,
       //   };
-        // const res = await Logout(data);
-        // console.log("res", res);
-        // if (res.code == -1 && res.reason == "Failed to authorize") {
-          this.$message({
-            message: "退出登入",
-            type: "success",
-          });
-          this.$store.commit("clearToken");
-          this.$router.replace("/login");
+      // const res = await Logout(data);
+      // console.log("res", res);
+      // if (res.code == -1 && res.reason == "Failed to authorize") {
+      this.$message({
+        message: "退出登入",
+        type: "success",
+      });
+      this.$store.commit("clearToken");
+      this.$router.replace("/login");
       // } catch (error) {
-        // this.$message.error(error.message);
+      // this.$message.error(error.message);
       // }
     },
     handleSelect(index) {
@@ -459,15 +412,16 @@ export default {
       align-items: center;
       justify-content: space-evenly;
       .header {
-        background-color: #fff;
         width: 0.36rem;
         height: 0.36rem;
-        // background: rgba(0, 0, 0, 0);
         box-shadow: 0rem 0.03rem 0.06rem rgba(0, 0, 0, 0.16);
         border-radius: 50%;
         display: flex;
         align-items: center;
+        overflow: hidden;
         img {
+          width: 0.36rem;
+          height: 0.36rem;
         }
       }
       .message {
